@@ -2,43 +2,14 @@
 A modern, controller-based web API built with ASP.NET Core to track order status with full CRUD operations, in-memory database, order history, Swagger UI, and realistic dummy data seeding.
 Ideal for learning Entity Framework relationships, DTOs, dependency injection, logging, and OpenAPI (Swagger).
 
+## Quick Start
+
+```bash
+git clone https://github.com/bellrandy578-cpu/OrderTracker-api.git
+cd OrderTracker-api
+dotnet run
+
 Features
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 FeatureDescriptionOrder TrackingCreate, read, update, delete orders with statusOrder HistoryTrack status changes with timestamps and userIn-Memory DBMicrosoft.EntityFrameworkCore.InMemory – zero setupSwagger UIInteractive docs at /swaggerDummy Data7 orders + 3 history entries seeded on startupDTO PatternSecure, clean API surfaceError LoggingSeeding failures logged safely
 
@@ -47,57 +18,8 @@ Orders (/api/orders)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 MethodEndpointDescriptionGET/api/ordersGet all ordersGET/api/orders/{id}Get order by IDPOST/api/ordersCreate new orderPUT/api/orders/{id}Update orderDELETE/api/orders/{id}Delete order
 Order History (/api/orderhistory)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -129,12 +51,12 @@ Visual Studio 2022+ or VS Code + C# Dev Kit
 
 Getting Started
 1. Clone & Navigate
-bashgit clone https://github.com/yourusername/OrderTracker.git
+bash git clone https://github.com/yourusername/OrderTracker.git
 cd OrderTracker
 2. Restore Packages
-bashdotnet restore
+bash dotnet restore
 3. Run the App
-bashdotnet run
+bash dotnet run
 
 App runs on https://localhost:7xxx and http://localhost:5xxx
 
@@ -151,103 +73,13 @@ POST → Add a new order
 PUT → Change status of an order
 
 
-
-
 Seeded Dummy Data
 Orders (OrderItems)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 IDProductStatusOrder DateAmount1Sunglassespending2025-09-2332Pursedelivered2025-06-0313Watchpending2025-07-1314Dressshipped2025-03-0345Slacksdelivered2025-06-0436Tiedelivered2025-08-2817Beltcanceled2025-05-232
 Order History (OrderHistoryItems)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
