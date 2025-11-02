@@ -21,10 +21,50 @@ namespace OrderTracker.Controllers
         }
 
         // GET: api/Orders
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Order>>> GetOrderItems()
+        //{
+        //    return await _context.OrderItems.ToListAsync();
+        //}
+
+        // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrderItems()
         {
-            return await _context.OrderItems.ToListAsync();
+
+            var ordersWithHistory = await _context.OrderItems
+                .Include(o => o.History)
+                .Select(o => new Order
+                {
+                    Id = o.Id,
+                    Product = o.Product,
+                    Status = o.Status,
+                    OrderDate = o.OrderDate,
+                    Amount = o.Amount,
+                    History = o.History.Select(h => new OrderHistory
+                    {
+                        Id = h.Id,
+                        OrderId = h.OrderId,
+                        Status = h.Status,
+                        ChangedAt = h.ChangedAt,
+                        ChangedBy = h.ChangedBy
+                    }).ToList()
+                }).ToListAsync();
+
+            if (ordersWithHistory == null)
+            {
+                return NotFound();
+            }
+
+            return ordersWithHistory;
+
+
+
+            //return await _context.OrderItems.ToListAsync();
+
+
+
+
         }
 
         // GET: api/Orders/5
@@ -58,6 +98,7 @@ namespace OrderTracker.Controllers
                     History = o.History.Select(h => new OrderHistory
                     {
                         Id = h.Id,
+                        OrderId = h.OrderId,
                         Status = h.Status,
                         ChangedAt = h.ChangedAt,
                         ChangedBy = h.ChangedBy
