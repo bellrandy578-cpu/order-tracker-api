@@ -16,11 +16,12 @@ namespace OrderTracker.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure relationship
-            modelBuilder.Entity<OrderHistory>()
-                .HasOne(h => h.Order)
-                .WithMany(o => o.History)
-                .HasForeignKey(h => h.OrderId);
+            // Configure the one-to-many relationship starting from the 'Order' (principal) side
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.History) // An Order has many OrderHistory records
+                .WithOne(h => h.Order)               // Each OrderHistory record has one Order
+                .HasForeignKey(h => h.OrderId)       // The foreign key is the OrderId property in OrderHistory
+                .IsRequired();                       // The foreign key is non-nullable (required relationship)
         }
     }
 

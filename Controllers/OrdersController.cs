@@ -41,6 +41,38 @@ namespace OrderTracker.Controllers
             return order;
         }
 
+        // GET: api/Orders/5/orderwithhistory
+        [HttpGet("{orderId}/orderwithhistory")]
+        public async Task<ActionResult<Order>> GetOrderWithHistory(int orderId)
+        {
+            var orderWithHistory = await _context.OrderItems
+                .Where(o => o.Id == orderId)
+                .Include(o => o.History)
+                .Select(o => new Order
+                {
+                    Id = o.Id,
+                    Product = o.Product,
+                    Status = o.Status,
+                    OrderDate = o.OrderDate,
+                    Amount = o.Amount,
+                    History = o.History.Select(h => new OrderHistory
+                    {
+                        Id = h.Id,
+                        Status = h.Status,
+                        ChangedAt = h.ChangedAt,
+                        ChangedBy = h.ChangedBy
+                    }).ToList()
+                })
+                .FirstOrDefaultAsync();
+
+            if (orderWithHistory == null)
+            {
+                return NotFound();
+            }
+
+            return orderWithHistory;
+        }
+
         // GET: api/Orders/5/history
         [HttpGet("{orderId}/history")]
         public async Task<ActionResult<IEnumerable<OrderHistory>>> GetHistory(int orderId)
