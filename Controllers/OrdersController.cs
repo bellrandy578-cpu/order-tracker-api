@@ -21,13 +21,6 @@ namespace OrderTracker.Controllers
         }
 
         // GET: api/Orders
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Order>>> GetOrderItems()
-        //{
-        //    return await _context.OrderItems.ToListAsync();
-        //}
-
-        // GET: api/Orders
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Order>>> GetOrderItems()
         {
@@ -58,35 +51,14 @@ namespace OrderTracker.Controllers
 
             return ordersWithHistory;
 
-
-
-            //return await _context.OrderItems.ToListAsync();
-
-
-
-
         }
 
         // GET: api/Orders/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Order>> GetOrder(int id)
         {
-            var order = await _context.OrderItems.FindAsync(id);
-
-            if (order == null)
-            {
-                return NotFound();
-            }
-
-            return order;
-        }
-
-        // GET: api/Orders/5/orderwithhistory
-        [HttpGet("{orderId}/orderwithhistory")]
-        public async Task<ActionResult<Order>> GetOrderWithHistory(int orderId)
-        {
-            var orderWithHistory = await _context.OrderItems
-                .Where(o => o.Id == orderId)
+            var order = await _context.OrderItems
+                .Where(o => o.Id == id)
                 .Include(o => o.History)
                 .Select(o => new Order
                 {
@@ -106,12 +78,12 @@ namespace OrderTracker.Controllers
                 })
                 .FirstOrDefaultAsync();
 
-            if (orderWithHistory == null)
+            if (order == null)
             {
                 return NotFound();
             }
 
-            return orderWithHistory;
+            return order;
         }
 
         // GET: api/Orders/5/history
