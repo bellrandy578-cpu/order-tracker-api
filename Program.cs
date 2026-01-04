@@ -129,7 +129,7 @@ app.MapPost("/api/auth/login", async (LoginRequest request, IUserService userSer
 .WithName("Login");
 
 
-// Protected endpoint
+// Protected endpoints
 app.MapGet("/api/secret", (HttpContext ctx) =>
     $"Hello {ctx.User.Identity?.Name ?? "anonymous"} — you are authenticated!")
     .RequireAuthorization();
