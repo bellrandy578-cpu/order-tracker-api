@@ -91,6 +91,7 @@ namespace OrderTracker.Controllers
 
         // GET: api/Orders/5/history
         [HttpGet("{orderId}/history")]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<OrderHistory>>> GetHistory(int orderId)
         {
             var history = await _context.OrderHistoryItems
@@ -106,6 +107,7 @@ namespace OrderTracker.Controllers
         // PUT: api/Orders/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutOrder(long id, Order order)
         {
             if (id != order.Id)
